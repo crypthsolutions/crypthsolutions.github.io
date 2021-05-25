@@ -1,0 +1,44 @@
+runtime: php74
+default_expiration: "365d"
+entrypoint: serve index.html
+
+handlers:
+  - url: /
+    script: auto
+    secure: always
+    # http_headers:
+    #   Cache-Control: public
+      # Access-Control-Allow-Origin: https://raw.githubusercontent.com/
+    #   Strict-Transport-Security: max-age=31536000; includeSubDomains
+
+  - url: /.*
+    script: auto
+    secure: always
+    # http_headers:
+    #   Cache-Control: public
+    #   Access-Control-Allow-Origin: https://raw.githubusercontent.com/
+
+# Serve a directory as a static resource.
+  # - url: /assets
+  #     static_dir: assets
+  #     # secure: always
+  #     # upload: assets/.*\.(gif|png|jpg|js|css)$
+
+# Serve your app through a front controller at index.php or public/index.php.
+  - url: .*
+    script: auto
+    secure: always
+    # http_headers:
+    #   Cache-Control: public
+    #   Access-Control-Allow-Origin: https://raw.githubusercontent.com/
+
+error_handlers:
+  - file: index.html
+
+automatic_scaling:
+  # target_cpu_utilization: 0.65
+  min_instances: 1
+  max_instances: 1
+  max_pending_latency: automatic
+
+
